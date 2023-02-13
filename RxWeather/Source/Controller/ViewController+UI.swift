@@ -22,11 +22,16 @@ extension ViewController {
             $0.top.equalTo(countryLabel.snp.bottom).offset(24)
         }
         
-        view.addSubview(iconImageView)
-        iconImageView.snp.makeConstraints {
+        view.addSubview(iconView)
+        iconView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.size.equalTo(80)
             $0.top.equalTo(cityNameLabel.snp.bottom).offset(24)
+        }
+        
+        iconView.addSubview(iconImageView)
+        iconImageView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
         
         view.addSubview(weatherLabel)
@@ -46,5 +51,25 @@ extension ViewController {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(tempLabel.snp.bottom).offset(24)
         }
+        
+        // Test value for preview
+//        countryLabel.text = "JP"
+//        cityNameLabel.text = "Tokyo"
+//        weatherLabel.text = "Rain"
+//        tempLabel.text = "7.0 °C"
+//        feelsLikeTempLabel.text = "Feels Like 2.4 °C"
     }
 }
+
+#if DEBUG
+import SwiftUI
+
+@available(iOS 13, *)
+struct ViewControllerPreview: PreviewProvider {
+
+    static var previews: some View {
+        // view controller using programmatic UI
+        ViewController().toPreview()
+    }
+}
+#endif
