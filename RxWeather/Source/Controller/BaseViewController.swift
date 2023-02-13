@@ -5,12 +5,15 @@
 //
 
 import UIKit
+import RxSwift
 
 @objc protocol BaseViewControllerCustomizable {
     @objc optional func setupUI()
 }
 
 class BaseViewController: UIViewController {
+    var disposeBag = DisposeBag()
+    
     init() {
         super.init(nibName: nil, bundle: nil)
     }

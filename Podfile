@@ -9,10 +9,12 @@ target 'RxWeather' do
 	pod 'ReactorKit'
 	pod 'RxCocoa', '6.5.0'
 	pod 'SnapKit', '~> 5.6.0'
+  pod 'Alamofire'
 
   target 'RxWeatherTests' do
     inherit! :search_paths
-    # Pods for testing
+    pod 'RxBlocking', '6.5.0'
+    pod 'RxTest', '6.5.0'
   end
 
   target 'RxWeatherUITests' do
