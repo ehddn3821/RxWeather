@@ -9,7 +9,9 @@ target 'RxWeather' do
 	pod 'ReactorKit'
 	pod 'RxCocoa', '6.5.0'
 	pod 'SnapKit', '~> 5.6.0'
-  pod 'Alamofire'
+	pod 'Alamofire'
+	pod 'SkeletonView'
+	pod 'Then'
 
   target 'RxWeatherTests' do
     inherit! :search_paths

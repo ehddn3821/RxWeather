@@ -10,6 +10,7 @@ import RxSwift
 
 protocol WeatherServiceType {
     func fetchWeather(cityName: String) -> Observable<Result<WeatherResponse?, WeatherError>>
+    func downloadIcon(_ iconName: String) -> Observable<UIImage>
 }
 
 final class WeatherService: WeatherServiceType {
@@ -19,7 +20,9 @@ final class WeatherService: WeatherServiceType {
         return Observable.create { observer -> Disposable in
             AF.request(self.baseUrl,
                        method: .get,
-                       parameters: ["q" : cityName, "appid" : APIKey.key])
+                       parameters: ["q" : cityName,
+                                    "appid" : APIKey.key,
+                                    "units": "metric"])
             .responseDecodable(of: WeatherResponse.self) { response in
                 switch response.result {
                 case .success(let data):
@@ -28,6 +31,22 @@ final class WeatherService: WeatherServiceType {
                     guard let data = response.data else { return observer.onError(error) }
                     let error = try! JSONDecoder().decode(WeatherError.self, from: data)
                     observer.onNext(.failure(error))
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
+    func downloadIcon(_ iconName: String) -> Observable<UIImage> {
+        let url = "http://openweathermap.org/img/wn/\(iconName)@2x.png"
+        return Observable.create { observer -> Disposable in
+            AF.download(url).responseData { res in
+                switch res.result {
+                case .success(let data):
+                    observer.onNext(UIImage(data: data)!)
+                case .failure(let error):
+                    Log.error(error.localizedDescription)
+                    observer.onError(error)
                 }
             }
             return Disposables.create()

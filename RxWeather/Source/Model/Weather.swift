@@ -10,6 +10,14 @@ import Foundation
 struct WeatherResponse: Decodable {
     let weather: [Weather]
     let main: Temp
+    let sys: Sys
+    let name: String
+}
+
+struct Weather: Decodable {
+    let main: String
+    let description: String
+    let icon: String
 }
 
 struct Temp: Decodable {
@@ -19,10 +27,8 @@ struct Temp: Decodable {
     let temp_max: Double
 }
 
-struct Weather: Decodable {
-    let main: String
-    let description: String
-    let icon: String
+struct Sys: Decodable {
+    let country: String
 }
 
 struct WeatherError: Decodable, Error {
