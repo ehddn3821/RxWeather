@@ -1,5 +1,5 @@
 //
-//  ViewReactor.swift
+//  WeatherViewReactor.swift
 //  RxWeather
 //
 //  Created by dwKang on 2023-02-13.
@@ -9,7 +9,7 @@ import ReactorKit
 import RxSwift
 import RxCocoa
 
-final class ViewReactor: Reactor {
+final class WeatherViewReactor: Reactor {
     enum Action {
         case fetchWeather(String)
     }

@@ -1,5 +1,5 @@
 //
-//  ViewController+UI.swift
+//  WeatherViewController+UI.swift
 //  RxWeather
 //
 //  Created by dwKang on 2023-02-13.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-extension ViewController {
+extension WeatherViewController {
     func setupUI() {
         view.addSubview(countryLabel)
         countryLabel.snp.makeConstraints {
@@ -65,11 +65,11 @@ extension ViewController {
 import SwiftUI
 
 @available(iOS 13, *)
-struct ViewControllerPreview: PreviewProvider {
+struct WeatherViewControllerPreview: PreviewProvider {
 
     static var previews: some View {
         // view controller using programmatic UI
-        ViewController().toPreview()
+        WeatherViewController().toPreview()
     }
 }
 #endif

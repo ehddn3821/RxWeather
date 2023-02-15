@@ -13,9 +13,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
-        let rootVC = ViewController()
+        let rootVC = WeatherViewController()
         let service = WeatherService()
-        let reactor = ViewReactor(service: service)
+        let reactor = WeatherViewReactor(service: service)
         rootVC.reactor = reactor
         let navRootVC = UINavigationController(rootViewController: rootVC)
         window?.rootViewController = navRootVC
