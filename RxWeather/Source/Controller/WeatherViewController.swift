@@ -15,6 +15,7 @@ import Then
 final class WeatherViewController: BaseViewController, View {
     
     //MARK: Properties
+    
     let countryLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 16, weight: .medium)
     }
@@ -44,16 +45,20 @@ final class WeatherViewController: BaseViewController, View {
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
     }
 
+    
     //MARK: View Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
+    
     //MARK: Binding
+    
     func bind(reactor: WeatherViewReactor) {
         // Action
         self.rx.viewDidLoad
-            .map { Reactor.Action.fetchWeather("Tokyo") }
+            .map { Reactor.Action.fetchWeather }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         

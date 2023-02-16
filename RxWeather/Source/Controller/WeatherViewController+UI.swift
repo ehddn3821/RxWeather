@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 
 extension WeatherViewController {
+    
     func setupUI() {
         view.addSubview(countryLabel)
         countryLabel.snp.makeConstraints {
@@ -60,6 +61,7 @@ extension WeatherViewController {
 //        feelsLikeTempLabel.text = "Feels Like 2.4 °C"
     }
 }
+
 
 #if DEBUG
 import SwiftUI

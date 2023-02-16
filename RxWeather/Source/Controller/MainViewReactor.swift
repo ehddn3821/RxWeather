@@ -8,6 +8,7 @@
 import ReactorKit
 
 final class MainViewReactor: Reactor {
+    
     enum Action {
         case inputText(String)
     }
@@ -42,5 +43,20 @@ final class MainViewReactor: Reactor {
             newState.searchResult = cities
             return newState
         }
+    }
+    
+    func numberOfRowsInSection() -> Int {
+        return self.currentState.searchResult.count
+    }
+    
+    func cellForRowAt(_ cell: ResultTableViewCell, indexRow: Int) {
+        cell.cityNameLabel.text = self.currentState.searchResult[indexRow]
+    }
+    
+    func presentToWeatherViewController(from: BaseViewController, indexRow: Int) {
+        let rct = WeatherViewReactor(service: self.service, cityName: self.currentState.searchResult[indexRow])
+        let vc = WeatherViewController()
+        vc.reactor = rct
+        from.present(vc, animated: true)
     }
 }

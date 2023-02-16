@@ -15,9 +15,12 @@ protocol WeatherServiceType {
     func downloadIcon(_ iconName: String) -> Observable<UIImage>
 }
 
+
 final class WeatherService: WeatherServiceType {
+    
     let baseUrl: String = "https://api.openweathermap.org/data/2.5/weather"
     var cities: [City] = []
+    
     
     init() {
         Log.info("init")
@@ -29,20 +32,24 @@ final class WeatherService: WeatherServiceType {
         }
     }
     
+    
     func searchCity(_ searchText: String) -> Observable<[String]> {
         var result: [String] = []
         
-        for city in cities {
-            let cityName = city.name.lowercased()
-            if cityName.hasPrefix(searchText) {
-                result.append(cityName)
-                if result.count == 5 {
-                    return .just(result)
+        if searchText != "" {
+            for city in cities {
+                let cityName = city.name.lowercased()
+                if cityName.hasPrefix(searchText) {
+                    result.append(cityName)
+                    if result.count == 5 {
+                        return .just(result)
+                    }
                 }
             }
         }
         return .just(result)
     }
+    
     
     func fetchWeather(cityName: String) -> Observable<Result<WeatherResponse?, WeatherError>> {
         return Observable.create { observer -> Disposable in
@@ -64,6 +71,7 @@ final class WeatherService: WeatherServiceType {
             return Disposables.create()
         }
     }
+    
     
     func downloadIcon(_ iconName: String) -> Observable<UIImage> {
         let url = "http://openweathermap.org/img/wn/\(iconName)@2x.png"

@@ -11,7 +11,7 @@ import RxCocoa
 
 final class WeatherViewReactor: Reactor {
     enum Action {
-        case fetchWeather(String)
+        case fetchWeather
     }
     
     enum Mutation {
@@ -20,21 +20,23 @@ final class WeatherViewReactor: Reactor {
     }
     
     struct State {
+        var currentCityName: String
         var weatherResponse: WeatherResponse? = nil
         var weatherError: WeatherError? = nil
     }
     
     var service: WeatherServiceType
-    var initialState = State()
+    var initialState: State
     
-    init(service: WeatherServiceType) {
+    init(service: WeatherServiceType, cityName: String) {
         self.service = service
+        self.initialState = State(currentCityName: cityName)
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-        case .fetchWeather(let cityName):
-            return service.fetchWeather(cityName: cityName)
+        case .fetchWeather:
+            return service.fetchWeather(cityName: self.currentState.currentCityName)
                 .map { result in
                     switch result {
                     case .success(let res):
