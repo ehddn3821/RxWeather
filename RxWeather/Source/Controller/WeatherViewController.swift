@@ -47,18 +47,10 @@ final class WeatherViewController: BaseViewController, View {
     //MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        guard let path = Bundle.main.path(forResource: "CitiesList", ofType: "json") else { return }
-        guard let jsonString = try? String(contentsOfFile: path) else { return }
-        if let data = jsonString.data(using: .utf8),
-           let cities = try? JSONDecoder().decode([Cities].self, from: data) {
-            print(cities.first?.name)
-        }
     }
 
     //MARK: Binding
     func bind(reactor: WeatherViewReactor) {
-        //TODO: 도시 이름 입력 받기
         // Action
         self.rx.viewDidLoad
             .map { Reactor.Action.fetchWeather("Tokyo") }

@@ -26,7 +26,7 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         Log.info("\(type(of: self)): viewDidLoad")
-        view.backgroundColor = .systemBackground
+        self.view.backgroundColor = .systemBackground
         _setupUI()
     }
     
@@ -57,8 +57,13 @@ class BaseViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
+    
     deinit {
         Log.info("\(type(of: self)): deinit")
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }
 
